@@ -7,13 +7,14 @@ import static org.junit.Assert.*;
 
 /**
  * @author Artem Polshchak on 19.12.2021.
- * @project job4j_design
+ * @project job4j_design 1. Что такое итератор. [#4951]
  */
-public class ArrayItTest {
+
+public class BackwardArrayItTest {
 
     @Test
     public void whenMultiCallHasNextThenTrue() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {1, 2, 3}
         );
         assertThat(it.hasNext(), is(true));
@@ -22,7 +23,7 @@ public class ArrayItTest {
 
     @Test
     public void whenReadSequence() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {1, 2, 3, 4, 5, 6, 7, 8}
         );
         assertThat(it.next(), is(8));
@@ -37,7 +38,7 @@ public class ArrayItTest {
 
     @Test(expected = NoSuchElementException.class)
     public void whenNextFromEmpty() {
-        ArrayIt it = new ArrayIt(
+        BackwardArrayIt it = new BackwardArrayIt(
                 new int[] {}
         );
         it.next();

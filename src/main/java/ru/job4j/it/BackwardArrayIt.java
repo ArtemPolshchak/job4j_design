@@ -7,11 +7,12 @@ import java.util.NoSuchElementException;
  * @author Artem Polshchak on 19.12.2021.
  * @project job4j_design 1. Что такое итератор. [#4951]
  */
-public class ArrayIt implements Iterator<Integer> {
+
+public class BackwardArrayIt implements Iterator<Integer> {
     private final int[] data;
     private int point = 0;
 
-    public ArrayIt(int[] data) {
+    public BackwardArrayIt(int[] data) {
         this.data = data;
     }
 
