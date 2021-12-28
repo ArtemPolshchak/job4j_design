@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author User on 23.12.2021.
+ * @author Artem Polshchak on 28.12.2021.
  * @project job4j_design
+ * 0. Что такое обобщенные типы (generics) [#4952 #244801]
  */
 
 public class Generics {
@@ -24,14 +25,14 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-       // gen.printBoundedWildCard(first);
+        /*gen.printBoundedWildCard(first);*/
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-       // gen.printLowerBoundedWildCard(third);
+       /* gen.printLowerBoundedWildCard(third);*/
     }
 
     public void printObject(List<?> list) {
