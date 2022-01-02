@@ -30,30 +30,29 @@ public class SimpleArrayList<T> implements List<T> {
     private int modCount;
 
     public SimpleArrayList(int capacity) {
-
         this.container = (T[]) new Object[capacity];
-
     }
 
     /**
-     * Метод проверяет если счетчик <size> ровняется размеру массива, или больше,
-     * то массив увеличивается на 1 индекс,
-     * если счетчик <size> меньше размера массива,то
-     * метод добавляет новый елемент <value> в <SimpleArrayList>
+     * Метод добавляет новый елемент <value> в <SimpleArrayList>
      * @param value значение добавляемое в <SimpleArrayList>
      */
 
     @Override
     public void add(T value) {
+        increasingArray();
+        container[size++] = value;
+        modCount++;
+    }
 
+    /**
+     * Метод проверяет если счетчик <size> ровняется размеру массива, или больше,
+     * то массив увеличивается на 1 индекс
+      */
+    private void increasingArray() {
         if (size >= container.length) {
             container = Arrays.copyOf(container, container.length + 1);
         }
-
-        container[size++] = value;
-
-        modCount++;
-
     }
 
     /**
@@ -66,17 +65,11 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-
-        Objects.checkIndex(index, container.length);
-
+        Objects.checkIndex(index, size);
         T oldValue = container[index];
-
         container[index] = newValue;
-
         modCount++;
-
         return oldValue;
-
     }
 
     /**
@@ -88,23 +81,16 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-
-        Objects.checkIndex(index, container.length);
-
+        Objects.checkIndex(index, size);
         T oldVaLue = container[index];
-
         int numContainer = size - index - 1;
-
          System.arraycopy(
                 this.container, index + 1, this.container, index, numContainer
         );
+        container[container.length - 1] = null;
 
-         size--;
-
-         System.arraycopy(container, 0, container, 0, size);
-
+         System.arraycopy(container, 0, container, 0, --size);
         modCount++;
-
         return oldVaLue;
     }
 
@@ -117,11 +103,8 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-
-        Objects.checkIndex(index, container.length);
-
+        Objects.checkIndex(index, size);
         return container[index];
-
     }
 
     /**
@@ -131,9 +114,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public int size() {
-
         return size;
-
     }
 
     /**
@@ -142,32 +123,22 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public Iterator<T> iterator() {
-
         return new Iterator<T>() {
             final int expectModCount = modCount;
             int cursor = 0;
 
-            final void checkForModification() {
+            @Override
+            public boolean hasNext() {
                 if (modCount != expectModCount) {
                     throw new ConcurrentModificationException();
                 }
+                return cursor < size;
             }
-
-            final void checkHasNext() {
+            @Override
+            public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-            }
-
-            @Override
-            public boolean hasNext() {
-                checkForModification();
-                return cursor < size;
-            }
-
-            @Override
-            public T next() {
-                checkHasNext();
                 return container[cursor++];
             }
         };
