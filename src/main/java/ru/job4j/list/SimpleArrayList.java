@@ -65,8 +65,8 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        get(index);
-        T oldValue = container[index];
+
+        T oldValue = get(index);
         container[index] = newValue;
         modCount++;
         return oldValue;
@@ -81,13 +81,13 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        get(index);
-        T oldVaLue = container[index];
+
+        T oldVaLue = get(index);
         int numContainer = (size--) - index - 1;
          System.arraycopy(
                 this.container, index + 1, this.container, index, numContainer
         );
-         container[container.length - 1] = null;
+         container[size] = null;
         modCount++;
         return oldVaLue;
     }
