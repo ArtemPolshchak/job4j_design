@@ -18,13 +18,10 @@ public class ForwardLinked<T>  implements Iterable<T> {
      * @param value елемент, который додается.
      */
     public void addFirst(T value) {
-
         Node<T> newNode = new Node<>(value);
-        if (head == null) {
-            head = newNode;
-            return;
+        if (head != null) {
+            newNode.next = head;
         }
-        newNode.next = head;
         head = newNode;
     }
     /**
