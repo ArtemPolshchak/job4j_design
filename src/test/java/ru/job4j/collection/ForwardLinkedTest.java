@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
  * Уровень : 2. ДжуниорКатегория : 2.1. Структуры данных и алгоритмы.Топик : 2.1.3. List
  */
 public class ForwardLinkedTest {
+
     @Test(expected = NoSuchElementException.class)
     public void whenDeleteFirst() {
         ForwardLinked<Integer> linked = new ForwardLinked<>();

@@ -13,12 +13,27 @@ public class ForwardLinked<T>  implements Iterable<T> {
     private Node<T> head;
 
     /**
+     * Метод добавляет елемент в начало списка
+     *
+     * @param value елемент, который додается.
+     */
+    public void addFirst(T value) {
+
+        Node<T> newNode = new Node<>(value);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
+    }
+    /**
      * Метод добавляет елемент в конец списка.
      *
      * @param value елемент, который додается.
      */
     public void add(T value) {
-        Node<T> node = new Node<T>(value, null);
+        Node<T> node = new Node<T>(value);
         if (head == null) {
             head = node;
             return;
@@ -82,9 +97,8 @@ public class ForwardLinked<T>  implements Iterable<T> {
         T value;
         Node<T> next;
 
-        public Node(T value, Node<T> next) {
+        public Node(T value) {
             this.value = value;
-            this.next = next;
         }
     }
 }
