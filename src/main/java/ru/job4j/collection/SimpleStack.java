@@ -24,4 +24,13 @@ public class SimpleStack<T> {
         linked.addFirst(value);
 
     }
+
+    /**
+     * Метод проверяет пустой ли лист или нет
+     *
+     * @return {@code true} если лист пустой, {@code false} если лист не пустой
+     */
+    public boolean isEmpty() {
+        return linked.isEmpty();
+    }
 }
