@@ -24,6 +24,7 @@ public class ForwardLinked<T>  implements Iterable<T> {
         }
         head = newNode;
     }
+
     /**
      * Метод добавляет елемент в конец списка.
      *
