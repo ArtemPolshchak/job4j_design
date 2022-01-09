@@ -1,6 +1,8 @@
 package ru.job4j.collection;
 
 
+import java.util.NoSuchElementException;
+
 /**
  * @author Artem Polshchak on 08.01.2022.
  * @project job4j_design 5. Очередь на двух стеках [#160]112
@@ -15,6 +17,9 @@ public class SimpleQueue<T> {
      * @return element
      */
     public T poll() {
+        if (in.isEmpty() && out.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         if (out.isEmpty()) {
             while (!in.isEmpty()) {
                 out.push(in.pop());
