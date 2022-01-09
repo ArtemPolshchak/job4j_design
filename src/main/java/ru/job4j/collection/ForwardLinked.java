@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
  */
 public class ForwardLinked<T>  implements Iterable<T> {
     private Node<T> head;
+    Node<T> tail;
 
     /**
      * Метод добавляет елемент в начало списка
@@ -31,7 +32,7 @@ public class ForwardLinked<T>  implements Iterable<T> {
      * @param value елемент, который додается.
      */
     public void add(T value) {
-        Node<T> node = new Node<T>(value);
+        Node<T> node = new Node<>(value);
         if (head == null) {
             head = node;
             return;
@@ -68,12 +69,33 @@ public class ForwardLinked<T>  implements Iterable<T> {
     }
 
     /**
+     * Метод переставляет элементы в обратном порядке
+     */
+    public void revert() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        if (head.next != null) {
+            tail = head;
+            Node<T> current = head.next;
+            head.next = null;
+            while (current != null) {
+                Node<T> tmp = current.next;
+                current.next = head;
+                head = current;
+                current = tmp;
+            }
+        }
+    }
+
+
+    /**
      * Метод осуществляет перебор елементов массива
      * @return элемент листа.
      */
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             Node<T> node = head;
 
             @Override
