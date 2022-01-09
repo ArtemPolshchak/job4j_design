@@ -1,6 +1,7 @@
 package ru.job4j.collection;
 
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,7 +12,9 @@ import java.util.NoSuchElementException;
  */
 public class ForwardLinked<T>  implements Iterable<T> {
     private Node<T> head;
-    Node<T> tail;
+    private Node<T> tail;
+    private int modCount = 0;
+    private int size = 0;
 
     /**
      * Метод добавляет елемент в начало списка
@@ -24,6 +27,8 @@ public class ForwardLinked<T>  implements Iterable<T> {
             newNode.next = head;
         }
         head = newNode;
+        modCount++;
+        size++;
     }
 
     /**
@@ -32,6 +37,8 @@ public class ForwardLinked<T>  implements Iterable<T> {
      * @param value елемент, который додается.
      */
     public void add(T value) {
+        modCount++;
+        size++;
         Node<T> node = new Node<>(value);
         if (head == null) {
             head = node;
@@ -42,6 +49,7 @@ public class ForwardLinked<T>  implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+
     }
 
     /**
@@ -55,8 +63,10 @@ public class ForwardLinked<T>  implements Iterable<T> {
         Node<T> deleteElement = head;
         head = head.next;
         deleteElement.next = null;
-
+        size--;
+        modCount++;
         return deleteElement.value;
+
     }
 
     /**
@@ -71,23 +81,32 @@ public class ForwardLinked<T>  implements Iterable<T> {
     /**
      * Метод переставляет элементы в обратном порядке
      */
-    public void revert() {
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-        if (head.next != null) {
-            tail = head;
-            Node<T> current = head.next;
-            head.next = null;
-            while (current != null) {
-                Node<T> tmp = current.next;
-                current.next = head;
-                head = current;
-                current = tmp;
+    public boolean revert() {
+        if (isEmpty() || size() == 1) {
+            return false;
+        } else {
+            if (head.next != null) {
+                tail = head;
+                Node<T> current = head.next;
+                head.next = null;
+                while (current != null) {
+                    Node<T> tmp = current.next;
+                    current.next = head;
+                    head = current;
+                    current = tmp;
+                }
             }
+            return true;
         }
     }
 
+    /**
+     * Метод возвращает размер списка
+     * @return size
+     */
+    public int size() {
+        return size;
+    }
 
     /**
      * Метод осуществляет перебор елементов массива
@@ -96,10 +115,14 @@ public class ForwardLinked<T>  implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
+            final int expectModCount = modCount;
             Node<T> node = head;
 
             @Override
             public boolean hasNext() {
+                if (modCount != expectModCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return node != null;
             }
 
