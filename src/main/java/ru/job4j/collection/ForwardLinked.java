@@ -1,6 +1,8 @@
 package ru.job4j.collection;
 
 
+import ru.job4j.generic.Base;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -82,8 +84,9 @@ public class ForwardLinked<T>  implements Iterable<T> {
      * Метод переставляет элементы в обратном порядке
      */
     public boolean revert() {
+        boolean rsl = true;
         if (isEmpty() || size() == 1) {
-            return false;
+            rsl = false;
         } else {
             if (head.next != null) {
                 tail = head;
@@ -96,8 +99,8 @@ public class ForwardLinked<T>  implements Iterable<T> {
                     current = tmp;
                 }
             }
-            return true;
         }
+        return rsl;
     }
 
     /**
