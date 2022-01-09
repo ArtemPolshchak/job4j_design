@@ -88,7 +88,6 @@ public class ForwardLinked<T>  implements Iterable<T> {
         if (isEmpty() || size() == 1) {
             rsl = false;
         } else {
-            if (head.next != null) {
                 tail = head;
                 Node<T> current = head.next;
                 head.next = null;
@@ -98,7 +97,7 @@ public class ForwardLinked<T>  implements Iterable<T> {
                     head = current;
                     current = tmp;
                 }
-            }
+
         }
         return rsl;
     }
