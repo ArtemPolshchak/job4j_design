@@ -15,7 +15,7 @@ public class SimpleArrayList<T> implements List<T> {
     /**
      * <container> массив
      */
-    private T[] container;
+    private T[] container = (T[]) new Object[10];
 
     /**
      * <size> счетчик - указывающий на актуальный размер массива <container>
@@ -29,9 +29,10 @@ public class SimpleArrayList<T> implements List<T> {
      */
     private int modCount;
 
-    public SimpleArrayList(int capacity) {
-        this.container = (T[]) new Object[capacity];
+    public SimpleArrayList() {
     }
+
+
 
     /**
      * Метод добавляет новый елемент <value> в <SimpleArrayList>

@@ -78,5 +78,4 @@ public class SimpleSetTest {
         assertFalse(set.add(null));
         assertFalse(set.add(2));
     }
-
 }

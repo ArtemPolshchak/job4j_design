@@ -7,6 +7,8 @@ package ru.job4j.set;
  * Уровень : 2. ДжуниорКатегория : 2.1. Структуры данных и алгоритмы.Топик : 2.1.4. Set
  */
 public interface Set<T> extends Iterable<T> {
+
     boolean add(T value);
+
     boolean contains(T value);
 }

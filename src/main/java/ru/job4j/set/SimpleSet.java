@@ -15,7 +15,7 @@ public class SimpleSet<T> implements Set<T> {
     private SimpleArrayList<T> set = new SimpleArrayList<>();
 
     /**
-     * Метод добавляет новое уникальное значение в коллекцию,
+     * Метод добавляет новое уникальное значение в коллекцию
      * @param value добавляемое значение
      * @return true если добавляемый в коллекцию элемент уникальный,
      */

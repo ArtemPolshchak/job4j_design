@@ -1,5 +1,7 @@
 package ru.job4j.linkedlist;
 
+import java.util.ListIterator;
+
 /**
  * @author Artem Polshchak on 07.01.2022.
  * @project job4j_design
@@ -12,5 +14,4 @@ public interface List<E> extends Iterable<E> {
     void add(E value);
     E get(int index);
     int size();
-
 }
