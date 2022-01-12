@@ -44,6 +44,9 @@ public class SimpleLinkedList<E> implements List<E> {
        modCount++;
     }
 
+    /**
+     * @return size количество элементов
+     */
     @Override
     public int size() {
         return size;
