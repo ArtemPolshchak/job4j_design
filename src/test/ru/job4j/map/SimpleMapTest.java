@@ -56,15 +56,7 @@ public class SimpleMapTest {
         String res = map.get(0);
         Assert.assertThat(res, is("lol"));
     }
-    @Test
-    public void getValueAfterRePutKey() {
-        Map<Integer, String> map = new SimpleMap<>();
-        map.put(0, "lol");
-        map.put(2, "haha");
-        map.put(2, "tororo");
-        String res = map.get(2);
-        Assert.assertThat(res, is("tororo"));
-    }
+
 
     @Test(expected = NoSuchElementException.class)
     public void remove() {

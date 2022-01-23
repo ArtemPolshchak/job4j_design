@@ -13,7 +13,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private int capacity = 8;
     private int modCount = 0;
     private int size = 0;
-    int threshold = 0;
 
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
@@ -28,22 +27,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean put(K key, V value) {
-
+        expand();
         boolean res = false;
         int index = indexFor(hash(key));
 
-        if (table[index] != null) {
-            if (table[index].hash == hash(key)) {
-                table[index].value = value;
-                res = true;
-            }
-        } else {
-            table[index] = new MapEntry<K, V>(key, value, hash(key));
+        if (table[index] == null) {
+            table[index] = new MapEntry<K, V>(key, value);
             res = true;
             size++;
             modCount++;
         }
-        expand();
+
 
         return res;
     }
@@ -84,26 +78,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
      * если заполненность равняется или превышает 0.75 от общего размера, то массив увеличивается вдвое.
      */
     private void expand() {
-
-        /*Например, произведение емкости и коэффициента
-        нагрузки на 16 * 0.75 = 12. Это означает,
-        что после сохранения 12-й пары ключ-значение
-        в HashMap его емкость становится равной 32*/
-
-        threshold = (int) (capacity * LOAD_FACTOR);
-        if (size == threshold) {
-            MapEntry<K, V>[] box = new MapEntry[capacity * 2];
+        if (size >= table.length * LOAD_FACTOR) {
+            capacity = capacity * 2;
+            table = Arrays.copyOf(table, capacity);
             for (int i = 0; i < capacity - 1; i++) {
                 if (table[i] != null) {
                     K key = table[i].key;
                     int index = indexFor(hash(key));
-                    if (box[index] == null) {
-                        box[index] = table[i];
+                    if (table[index] == null) {
+                        table[index] = table[i];
                     }
                 }
             }
-            capacity = capacity * 2;
-            table = Arrays.copyOf(box, capacity);
+
         }
     }
 
@@ -118,7 +105,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V value = null;
         int index = indexFor(hash(key));
         if (table[index] != null) {
-            if (table[index].hash == hash(key)) {
+
+            if (hash(table[index].key) == hash(key)) {
                 value = table[index].value;
             }
         } else {
@@ -139,7 +127,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean res = false;
         int index = indexFor(hash(key));
         if (table[index] != null) {
-            if (table[index].hash == hash(key)) {
+            if (hash(table[index].key) == hash(key)) {
                 table[index] = null;
                 res = true;
                 size--;
@@ -159,17 +147,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public Iterator iterator() {
 
-
         return new Iterator<>() {
             final int expectModCount = modCount;
-           final MapEntry<K, V>[] mapEntries = table;
             int cursor = 0;
-
 
             @Override
             public boolean hasNext() {
                 if (modCount != expectModCount) {
                     throw new ConcurrentModificationException();
+                }
+                while (cursor < table.length && table[cursor] == null) {
+                    cursor++;
                 }
                 return cursor < size;
             }
@@ -179,8 +167,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return mapEntries[cursor++];
-
+                return table[cursor++];
             }
         };
     }
@@ -188,12 +175,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private static class MapEntry<K, V> {
         K key;
         V value;
-        int hash;
 
-        public MapEntry(K key, V value, int hash) {
+        public MapEntry(K key, V value) {
             this.key = key;
             this.value = value;
-            this.hash = hash;
         }
     }
 }
