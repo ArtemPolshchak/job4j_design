@@ -81,16 +81,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (size >= table.length * LOAD_FACTOR) {
             capacity = capacity * 2;
             table = Arrays.copyOf(table, capacity);
+            MapEntry<K, V>[] box = new MapEntry[capacity];
             for (int i = 0; i < capacity - 1; i++) {
                 if (table[i] != null) {
                     K key = table[i].key;
                     int index = indexFor(hash(key));
-                    if (table[index] == null) {
-                        table[index] = table[i];
+                    if (box[index] == null) {
+                        box[index] = table[i];
                     }
                 }
             }
-
+            table = Arrays.copyOf(box, capacity);
         }
     }
 
