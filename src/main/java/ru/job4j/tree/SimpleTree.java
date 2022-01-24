@@ -1,6 +1,7 @@
 package ru.job4j.tree;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * @author Artem Polshchak on 24.01.2022.
@@ -34,24 +35,42 @@ public class SimpleTree<E> implements Tree<E> {
                 rsl = true;
             }
         }
-
         return rsl;
 
     }
 
     /**
-     * Метод производит поиско в дереве по элементу value
-     * @param value элемент, по которому производится поиск
-     * @return value если данный элемент присутствует в дереве, в противном случае возвращает null
+     * Метод производит поиск элемента value в дереве.
+     * @param value искомый элемент
+     * @return value
      */
     @Override
     public Optional<Node<E>> findBy(E value) {
+        return findByPredicate(e -> e.value.equals(value));
+    }
+
+    /**
+     * Метод производит проверку, является ли дерево бинарным.
+     * @return true если дерево бинароне.
+     */
+    @Override
+    public boolean isBinary() {
+     return findByPredicate(e -> e.children.size() > 2).isEmpty();
+
+    }
+
+    /**
+     * Метод осуществляет перебр всех елементов дерева, и осуществления проверки Predicate condition
+     * @param condition задает условие с проверкой true / false
+     * @return возвращает rsl элемент соответствующий условию condition
+     */
+    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
         Optional<Node<E>> rsl = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.value.equals(value)) {
+            if (condition.test(el)) {
                 rsl = Optional.of(el);
                 break;
             }
