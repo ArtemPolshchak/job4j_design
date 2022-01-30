@@ -13,17 +13,13 @@ import java.util.List;
 
 public class LogFilter {
     public static List<String> filter(String file) {
-        List<String> list = new ArrayList<>();
         List<String> result = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                list.add(line);
-            }
-            for (String s : list) {
-                String[] tmp = s.split(" ");
+                String[] tmp = line.split(" ");
                 for (int i = 0; i < tmp.length; i++) {
                     if (tmp[tmp.length - 2].contains("404")) {
-                        result.add(s);
+                        result.add(line);
                         break;
                     }
                 }
@@ -47,12 +43,10 @@ public class LogFilter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
+    }
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
         save(log, "404.txt");
-
     }
 }
