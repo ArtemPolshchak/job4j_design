@@ -1,14 +1,13 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Artem Polshchak on 29.01.2022.
  * @project job4j_design
- * 0.3. BufferedReader. [#252489]013
+ * 0.4. BufferedOutputStream [#252490]010
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.1. Ввод-вывод
  */
 
@@ -35,10 +34,25 @@ public class LogFilter {
         return result;
     }
 
+    public static void save(List<String> log, String file) {
+
+            try (PrintWriter out = new PrintWriter(
+                    new BufferedOutputStream(
+                            new FileOutputStream(file)
+
+            ))) {
+                for (String s : log) {
+                    out.println(s);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        for (String s : log) {
-            System.out.println(s);
-        }
+        save(log, "404.txt");
+
     }
 }
