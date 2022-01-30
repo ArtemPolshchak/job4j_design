@@ -17,12 +17,9 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] tmp = line.split(" ");
-                for (int i = 0; i < tmp.length; i++) {
                     if (tmp[tmp.length - 2].contains("404")) {
                         result.add(line);
-                        break;
                     }
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();
