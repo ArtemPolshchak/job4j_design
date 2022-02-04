@@ -29,20 +29,15 @@ public class Config {
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             while (reader.ready()) {
                 String str = reader.readLine();
-                if (str.isEmpty() || str.contains("#") || !str.contains("=")) {
-                    continue;
-                } else {
+                if (!str.isEmpty() && !str.contains("#") && str.contains("=")) {
                     String[] strings = str.split("=");
                     if (strings.length == 2 && (!strings[0].isEmpty() && !strings[1].isEmpty())) {
                         values.put(strings[0], strings[1]);
                     } else {
                         throw new IllegalArgumentException();
-
                     }
-
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
