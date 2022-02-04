@@ -31,11 +31,10 @@ public class Config {
                 String str = reader.readLine();
                 if (!str.isEmpty() && !str.contains("#") && str.contains("=")) {
                     String[] strings = str.split("=");
-                    if (strings.length == 2 && (!strings[0].isEmpty() && !strings[1].isEmpty())) {
-                        values.put(strings[0], strings[1]);
-                    } else {
+                    if (strings[0].isEmpty() || strings[1].isEmpty()) {
                         throw new IllegalArgumentException();
                     }
+                    values.put(strings[0], strings[1]);
                 }
             }
         } catch (IOException e) {
