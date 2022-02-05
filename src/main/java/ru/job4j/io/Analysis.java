@@ -22,7 +22,6 @@ public class Analysis {
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
             try (PrintWriter writer = new PrintWriter(new FileOutputStream(target))) {
                 while (reader.ready()) {
-
                     String status = reader.readLine();
                     if (status.contains("400") || status.contains("500")) {
                         if (workServer) {
@@ -30,8 +29,6 @@ public class Analysis {
                             result = line[1];
                             workServer = false;
                         }
-
-
                     } else if (!workServer) {
                         if ((!status.contains("400") || !status.contains("500"))) {
                             String[] line = status.split(" ");
@@ -44,7 +41,6 @@ public class Analysis {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
