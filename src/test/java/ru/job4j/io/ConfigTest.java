@@ -44,7 +44,7 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
         String str = config.toString();
-        assertThat(str, is("fileName=www.coll\r\nname=Petr "
-                + "Arsentev\r\nPathName=d.call.to\r\nsecondName=Vitas"));
+        assertThat(str,
+                is("fileName=www.coll\r\nname=Petr " + "Arsentev\r\nPathName=d.call.to\r\nsecondName=Vitas"));
     }
 }
