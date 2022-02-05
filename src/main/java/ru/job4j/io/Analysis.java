@@ -22,14 +22,14 @@ public class Analysis {
             try (PrintWriter writer = new PrintWriter(new FileOutputStream(target))) {
                 while (reader.ready()) {
                     String status = reader.readLine();
-                    if (status.contains("400") || status.contains("500")) {
+                    if (status.startsWith("400") || status.startsWith("500")) {
                         if (workServer) {
                             String[] line = status.split(" ");
                             result = line[1];
                             workServer = false;
                         }
                     } else if (!workServer) {
-                        if ((!status.contains("400") || !status.contains("500"))) {
+                        if (!status.startsWith("400") || !status.startsWith("500")) {
                             String[] line = status.split(" ");
                             String resString = result + ";" + line[1];
                             writer.println(resString);
