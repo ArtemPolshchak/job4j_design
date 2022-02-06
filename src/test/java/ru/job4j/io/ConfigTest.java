@@ -1,9 +1,17 @@
 package ru.job4j.io;
 
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import java.io.*;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+
+
 
 /**
  * @author Artem Polshchak on 03.02.2022.
@@ -12,6 +20,9 @@ import static org.junit.Assert.*;
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.1. Ввод-вывод
  */
 public class ConfigTest {
+
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
 
     @Test
     public void whenPairWithoutComment() {
@@ -39,12 +50,17 @@ public class ConfigTest {
     }
 
     @Test
-    public void whenPairWithEmptyLines() {
-        String path = "./data/pair_with_empty_lines.properties";
-        Config config = new Config(path);
+    public void whenIgnoreEmptyLines() throws IOException {
+        File source = folder.newFile("pair_with_empty_lines.properties");
+        try (PrintWriter out = new PrintWriter(source)) {
+            out.println(" ");
+            out.println("name=Petr Arsentev");
+            out.println(" ");
+            out.println("PathName=d.call.to");
+        }
+        Config config = new Config(source.getPath());
         config.load();
-        String test = "name=Petr Arsentev\r\nPathName=d.call.to";
-        String str = config.toString();
-        assertThat(str, is(test));
+
+        assertThat(config.toString(), is("name=Petr Arsentev\r\nPathName=d.call.to"));
     }
 }
