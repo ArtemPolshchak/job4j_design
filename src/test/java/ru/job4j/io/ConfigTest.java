@@ -48,19 +48,4 @@ public class ConfigTest {
         assertFalse(config.toString().contains("# PostgreSQL"));
 
     }
-
-    @Test
-    public void whenIgnoreEmptyLines() throws IOException {
-        File source = folder.newFile("pair_with_empty_lines.properties");
-        try (PrintWriter out = new PrintWriter(source)) {
-            out.println(" ");
-            out.println("name=Petr Arsentev");
-            out.println(" ");
-            out.println("PathName=d.call.to");
-        }
-        Config config = new Config(source.getPath());
-        config.load();
-
-        assertThat(config.toString(), is("name=Petr Arsentev\r\nPathName=d.call.to"));
-    }
 }
