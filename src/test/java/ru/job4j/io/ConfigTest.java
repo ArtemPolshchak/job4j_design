@@ -43,9 +43,8 @@ public class ConfigTest {
         String path = "./data/pair_with_empty_lines.properties";
         Config config = new Config(path);
         config.load();
-        String test = "fileName=www.coll\r\nname=Petr " + "Arsentev\r\nPathName=d.call.to\r\nsecondName=Vitas";
+        String test = "name=Petr Arsentev\r\nPathName=d.call.to";
         String str = config.toString();
-        assertThat(str,
-                is(test));
+        assertThat(str, is(test));
     }
 }
