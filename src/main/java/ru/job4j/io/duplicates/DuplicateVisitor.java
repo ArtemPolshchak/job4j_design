@@ -14,6 +14,7 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  */
 
 class DuplicatesVisitor extends SimpleFileVisitor<Path> {
+
     private final HashSet<FileProperty> set = new HashSet<>();
 
     @Override
