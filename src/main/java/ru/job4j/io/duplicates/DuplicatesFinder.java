@@ -13,6 +13,8 @@ import java.nio.file.Path;
 public class DuplicatesFinder {
 
     public static void main(String[] args) throws IOException {
-        Files.walkFileTree(Path.of("D:\\Новая Папка"), new DuplicatesVisitor());
+        DuplicateVisitor duplicateVisitor = new DuplicateVisitor();
+        Files.walkFileTree(Path.of("D:\\Новая Папка"), duplicateVisitor);
+        duplicateVisitor.getDuplicate();
     }
 }
