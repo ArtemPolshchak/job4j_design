@@ -1,14 +1,11 @@
 package ru.job4j.io.duplicates;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
@@ -20,41 +17,40 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class DuplicateVisitor extends SimpleFileVisitor<Path> {
 
-    private final HashSet<FileProperty> set = new HashSet<>();
-    private final List<FileProperty> duplicate = new ArrayList<>();
-
+    private final Map<FileProperty, List<Path>> map = new HashMap<>();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
 
-        FileProperty fileProperty = new FileProperty(file.toFile().length(), file.getFileName().toString());
+        FileProperty fileProperty = new FileProperty(file.toFile().length(), file.toFile().getName());
+        Path path = Paths.get(file.toFile().getAbsolutePath());
 
-         if (set.contains(fileProperty)) {
+         if (map.containsKey(fileProperty)) {
+             for (Map.Entry<FileProperty, List<Path>> listEntry : map.entrySet()) {
+                 if (listEntry.getKey().equals(fileProperty)) {
+                     List<Path> list = listEntry.getValue();
+                     list.add(path);
+                     listEntry.setValue(list);
+                 }
+             }
 
-                duplicate.add(fileProperty);
-                for (FileProperty s : set) {
-                    if (s.equals(fileProperty)) {
-                        duplicate.add(s);
-                    }
-                }
-                set.remove(fileProperty);
-
-        } else if (!set.contains(fileProperty)) {
-            if (!duplicate.contains(fileProperty)) {
-                set.add(fileProperty);
-            } else {
-                duplicate.add(fileProperty);
-            }
-
-        }
+         } else {
+             ArrayList<Path> list = new ArrayList<>();
+             list.add(path);
+             map.put(fileProperty, list);
+         }
         return CONTINUE;
     }
 
     public void getDuplicate() {
 
-        for (FileProperty fileProperty : duplicate) {
-            File file = new File(fileProperty.toString());
-            System.out.println(file.getAbsolutePath());
+        for (Map.Entry<FileProperty, List<Path>> entry : map.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                int number = 0;
+                while (number < entry.getValue().size()) {
+                    System.out.println("Дубликат: " + entry.getValue().get(number++));
+                }
+            }
         }
     }
 }
