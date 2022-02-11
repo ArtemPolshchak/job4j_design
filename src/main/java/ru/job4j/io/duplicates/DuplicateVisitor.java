@@ -26,14 +26,8 @@ public class DuplicateVisitor extends SimpleFileVisitor<Path> {
         Path path = Paths.get(file.toFile().getAbsolutePath());
 
          if (map.containsKey(fileProperty)) {
-             for (Map.Entry<FileProperty, List<Path>> listEntry : map.entrySet()) {
-                 if (listEntry.getKey().equals(fileProperty)) {
-                     List<Path> list = listEntry.getValue();
-                     list.add(path);
-                     listEntry.setValue(list);
-                 }
-             }
-
+             List<Path> list = map.get(fileProperty);
+             list.add(path);
          } else {
              ArrayList<Path> list = new ArrayList<>();
              list.add(path);
