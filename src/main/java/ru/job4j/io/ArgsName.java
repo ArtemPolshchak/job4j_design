@@ -27,11 +27,11 @@ public class ArgsName {
                 if (list[1].equals("")) {
                     throw new IllegalArgumentException("there is incorrect value of key");
                 } else {
-                    if (list[0].startsWith("-")) {
-                        String key = list[0].substring(1);
-                        values.put(key, list[1]);
+                    if (!list[0].startsWith("-")) {
+                        throw new IllegalArgumentException("incorrect key");
                     }
-                    values.put(list[0], list[1]);
+                    String key = list[0].substring(1);
+                    values.put(key, list[1]);
                 }
         }
     }
@@ -43,7 +43,7 @@ public class ArgsName {
     }
 
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
         ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
