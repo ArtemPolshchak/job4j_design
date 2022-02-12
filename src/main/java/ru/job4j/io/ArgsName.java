@@ -23,7 +23,6 @@ public class ArgsName {
         }
 
         for (String arg : args) {
-            if (!arg.contains("encoding=")) {
                 String[] list = arg.split("=", 2);
                 if (list[1].equals("")) {
                     throw new IllegalArgumentException("there is incorrect value of key");
@@ -31,7 +30,6 @@ public class ArgsName {
                     String key = list[0].substring(1);
                     values.put(key, list[1]);
                 }
-            }
         }
     }
 
