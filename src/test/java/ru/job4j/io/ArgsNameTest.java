@@ -43,7 +43,7 @@ public class ArgsNameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenIncorrectKey() {
-        ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "Xmx="});
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding=UTF-8", "Xmx=512"});
 
     }
 }
