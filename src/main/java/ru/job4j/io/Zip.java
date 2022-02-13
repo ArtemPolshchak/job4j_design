@@ -56,13 +56,13 @@ public class Zip {
         return list.stream().map(Path::toFile).collect(Collectors.toList());
     }
 
-
-
-    public static void main(String[] args) {
-
-        ArgsName argsName = ArgsName.of(args);
-        Path start = Paths.get(argsName.get("d"));
-
+    /**
+     * Метод делает валидацию входных параметров, которые должны соответствовать условию.
+     * @param args проверка на наличие нужного количества аргументов
+     * @param argsName метод проверяет, является ли переданный аргумент расширением файла.
+     * @param start метод проверяет, существует ли данная дирректория.
+     */
+    private static void validation(String[] args, ArgsName argsName, Path start) {
         if (args.length != 3) {
             throw new IllegalArgumentException("make sure the ROOT folder has exactly three arguments.");
         }
@@ -72,6 +72,14 @@ public class Zip {
         if (!start.toFile().isDirectory()) {
             throw new IllegalArgumentException("There is not such directory");
         }
+    }
+
+    public static void main(String[] args) {
+
+        ArgsName argsName = ArgsName.of(args);
+        Path start = Paths.get(argsName.get("d"));
+
+        validation(args, argsName, start);
 
         new Zip().packFiles(searcherFile(start, argsName.get("e")), new File(argsName.get("o")));
 
