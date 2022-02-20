@@ -20,17 +20,7 @@ public class ConsoleChat {
     private static final String STOP = "стоп";
     private static final String CONTINUE =  "продолжить";
 
-    public static String getOUT() {
-        return OUT;
-    }
 
-    public static String getSTOP() {
-        return STOP;
-    }
-
-    public static String getCONTINUE() {
-        return CONTINUE;
-    }
 
     public String getPath() {
         return path;
@@ -58,7 +48,11 @@ public class ConsoleChat {
             String line = reader.readLine();
             while (line != null) {
                 save.add(line);
-                if (line.equals(getSTOP())) {
+
+                if (line.equals(OUT)) {
+                    break;
+                }
+                if (line.equals(STOP)) {
                     permissionToReply = false;
                 }
                 if (permissionToReply) {
@@ -66,12 +60,13 @@ public class ConsoleChat {
                     System.out.println(list.get(index));
                     save.add(list.get(index));
                 }
-                if (line.equals(getCONTINUE())) {
+                if (line.equals(CONTINUE)) {
                     permissionToReply = true;
+                    int index = (int) (Math.random() * list.size());
+                    System.out.println(list.get(index));
+                    save.add(list.get(index));
                 }
-                if (line.equals(getOUT())) {
-                    break;
-                }
+
                 line = reader.readLine();
             }
             saveLog(save);
