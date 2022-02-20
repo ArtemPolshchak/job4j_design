@@ -55,13 +55,13 @@ public class ConsoleChat {
                 if (line.equals(STOP)) {
                     permissionToReply = false;
                 }
-                if (permissionToReply) {
-                    int index = (int) (Math.random() * list.size());
-                    System.out.println(list.get(index));
-                    save.add(list.get(index));
-                }
+
                 if (line.equals(CONTINUE)) {
                     permissionToReply = true;
+
+                }
+
+                if (permissionToReply) {
                     int index = (int) (Math.random() * list.size());
                     System.out.println(list.get(index));
                     save.add(list.get(index));
