@@ -49,16 +49,15 @@ public class ConsoleChat {
             while (line != null) {
                 save.add(line);
 
-                if (line.equals(OUT)) {
+                if (OUT.equals(line)) {
                     break;
                 }
-                if (line.equals(STOP)) {
+                if (STOP.equals(line)) {
                     permissionToReply = false;
                 }
 
-                if (line.equals(CONTINUE)) {
+                if (CONTINUE.equals(line)) {
                     permissionToReply = true;
-
                 }
 
                 if (permissionToReply) {
