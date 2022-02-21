@@ -46,18 +46,19 @@ public class ConsoleChat {
         boolean permissionToReply = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String line = reader.readLine();
-            while (line != null) {
+
+            loop: while (line != null) {
                 save.add(line);
-
-                if (OUT.equals(line)) {
-                    break;
-                }
-                if (STOP.equals(line)) {
-                    permissionToReply = false;
-                }
-
-                if (CONTINUE.equals(line)) {
-                    permissionToReply = true;
+                switch (line) {
+                    case (STOP):
+                        permissionToReply = false;
+                        break;
+                    case (CONTINUE):
+                        permissionToReply = true;
+                        break;
+                    case(OUT):
+                        break loop;
+                    default: break;
                 }
 
                 if (permissionToReply) {
@@ -68,6 +69,7 @@ public class ConsoleChat {
 
                 line = reader.readLine();
             }
+
             saveLog(save);
         } catch (IOException e) {
             e.printStackTrace();
