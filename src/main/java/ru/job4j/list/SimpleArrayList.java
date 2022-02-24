@@ -122,7 +122,7 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             final int expectModCount = modCount;
             int cursor = 0;
 
@@ -133,6 +133,7 @@ public class SimpleArrayList<T> implements List<T> {
                 }
                 return cursor < size;
             }
+
             @Override
             public T next() {
                 if (!hasNext()) {
