@@ -14,14 +14,17 @@ public class CSVReader {
     static String out = "out";
     static String delimiter = "delimiter";
     static String filter = "filter";
+    static String stdout = "stdout";
 
-    private static void validation(File file, File target) {
+    private static void validation(File file, File target, ArgsName argsName) {
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
 
-        if (!target.exists()) {
-            throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
+        if (!argsName.get(out).equals(stdout)) {
+            if (!target.exists()) {
+                throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
+            }
         }
     }
 
@@ -30,7 +33,8 @@ public class CSVReader {
         File fileIn = new File(argsName.get(path));
         File fileOut = new File(argsName.get(out));
 
-        validation(fileIn, fileOut);
+
+        validation(fileIn, fileOut, argsName);
 
         String[] filterArguments = argsName.get(filter).split(",");
 
@@ -56,15 +60,25 @@ public class CSVReader {
                 String s = stringBuilder.substring(0, stringBuilder.length() - 1);
                 resultList.add(s);
             }
-
-            try (FileWriter writer = new FileWriter(fileOut)) {
+            if (argsName.get(out).equals(stdout)) {
                 for (String s : resultList) {
-                    writer.write(s + System.getProperty("line.separator"));
+                    System.out.println(s);
+                }
+            } else {
+                try (FileWriter writer = new FileWriter(fileOut)) {
+                    for (String s : resultList) {
+                        writer.write(s + System.getProperty("line.separator"));
+                    }
                 }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        ArgsName argsName = ArgsName.of(args);
+        handle(argsName);
     }
 }
