@@ -9,7 +9,7 @@ import java.io.File;
 import java.nio.file.Files;
 
 /**
- * @author Artem.polschak@gmail.com on 18.02.2022.
+ * @author Artem.polschak@gmail.com on 15.03.2022.
  * @project job4j_design
  * 7. Scanner [#504791]
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.1. Ввод-вывод
