@@ -10,18 +10,18 @@ import java.util.*;
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.1. Ввод-вывод
  */
 public class CSVReader {
-    static String path = "path";
-    static String out = "out";
-    static String delimiter = "delimiter";
-    static String filter = "filter";
-    static String stdout = "stdout";
+    private static String path = "path";
+    private static String out = "out";
+    private static String delimiter = "delimiter";
+    private static String filter = "filter";
+    private static String stdout = "stdout";
 
     private static void validation(File file, File target, ArgsName argsName) {
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
 
-        if (!argsName.get(out).equals(stdout)) {
+        if (!stdout.equals(argsName.get(out))) {
             if (!target.exists()) {
                 throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
             }
@@ -48,7 +48,7 @@ public class CSVReader {
                 String[] tmp = str.split(argsName.get(delimiter));
                 for (String s : filterArguments) {
                     for (int l = 0; l < tmp.length; l++) {
-                        if (s.equals(tmp[l])) {
+                        if (tmp[l].equals(s)) {
                             numList.add(l);
                         }
                     }
