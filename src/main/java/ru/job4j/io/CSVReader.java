@@ -60,7 +60,7 @@ public class CSVReader {
                 String s = stringBuilder.substring(0, stringBuilder.length() - 1);
                 resultList.add(s);
             }
-            if (argsName.get(out).equals(stdout)) {
+            if (stdout.equals(argsName.get(out))) {
                 for (String s : resultList) {
                     System.out.println(s);
                 }
