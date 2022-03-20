@@ -24,7 +24,8 @@ public class EchoServer {
 
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String bye = "Bye";
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
+                    String str = "";
+                    while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
                         if (str.contains(bye)) {
                             String[] strings = str.split("=");
