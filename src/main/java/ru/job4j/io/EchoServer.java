@@ -14,6 +14,8 @@ import java.net.Socket;
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.2. Socket
  */
 public class EchoServer {
+    private static String exit = "?msg=Exit ";
+    private static String hello = "Hello";
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
@@ -23,27 +25,21 @@ public class EchoServer {
                             new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
 
-                    String exit = "Exit";
-                    String hello = "Hello";
                     String str = in.readLine();
 
                     if (!str.isEmpty()) {
                        System.out.println(str);
                         if (str.contains(exit)) {
-                            String[] strings = str.split("=");
-                            String[] secondStrings = strings[1].split(" ");
-                            if (secondStrings[0].equals(exit)) {
                                 server.close();
-                            }
-                        } else if (str.contains(hello)) {
-                            String[] strings = str.split("=");
-                            String[] secondStrings = strings[1].split(" ");
-                            if (secondStrings[0].equals(hello)) {
+
+                        } else if (str.contains("?msg=Hello ")) {
                                 out.write(hello.getBytes());
-                            }
+
                         } else {
-                            String[] strings = str.split("=");
-                            out.write(strings[1].getBytes());
+                            if (str.contains("=")) {
+                                String[] strings = str.split("=");
+                                out.write(strings[1].getBytes());
+                            }
                         }
                     }
                     out.flush();
