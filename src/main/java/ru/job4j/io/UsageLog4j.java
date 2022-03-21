@@ -14,10 +14,19 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        byte numByte = 8;
+        short numShort = 16;
+        int numInt = 32;
+        long numLong = 64;
+        char numChar = 16;
+        float numFloat = 32f;
+        double numDouble = 64d;
+        boolean check = true;
+
+        LOG.debug("Primitive Data Types have the following size byte : {}, short : {}, "
+                + "int : {}, long : {}, char : {}, "
+                + "float : {}, double : {}, boolean : {} ",
+                numByte, numShort, numInt, numLong, numChar, numFloat, numDouble, check);
+
     }
 }
