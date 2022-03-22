@@ -20,7 +20,7 @@ public class EchoServer {
     private static String exit = "?msg=Exit ";
     private static String hello = "Hello";
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
 
     public static void main(String[] args) {
 
