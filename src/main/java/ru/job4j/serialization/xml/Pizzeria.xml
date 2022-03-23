@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+    <pizzeria open="true" numberOfDishes="12">
+        <address address="pizzeria street house 18"/>
+        <jobPositions>
+            <jobPosition>Cook</jobPosition>
+            <jobPosition>Waiter</jobPosition>
+            <jobPosition>Cleaner</jobPosition>
+        </jobPositions>
+    </pizzeria>
