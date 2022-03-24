@@ -1,5 +1,6 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
 /**
@@ -8,13 +9,27 @@ import java.util.Arrays;
  * 1.Сериализация [#313163]
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.4. Сериализация
  */
-public class Pizzeria {
-    private final boolean open;
-    private final int numberOfDishes;
-    private final Address address;
-    private final String[] jobPositions;
 
-    public Pizzeria(boolean open, int numberOfDishes, Address address, String[] jobPositions) {
+@XmlRootElement(name = "pizzeria")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Pizzeria {
+
+    @XmlAttribute
+    private  boolean open;
+
+    @XmlAttribute
+    private  int numberOfDishes;
+    private Address address;
+
+    @XmlElementWrapper(name = "jobPositions")
+    @XmlElement(name = "jobPosition")
+    private  String[] jobPositions;
+
+    public Pizzeria() {
+
+    }
+
+    public Pizzeria(boolean open, int numberOfDishes, Address address, String... jobPositions) {
         this.open = open;
         this.numberOfDishes = numberOfDishes;
         this.address = address;
