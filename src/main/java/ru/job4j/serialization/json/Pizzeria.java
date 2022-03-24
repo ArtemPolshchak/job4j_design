@@ -29,6 +29,22 @@ public class Pizzeria {
 
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public int getNumberOfDishes() {
+        return numberOfDishes;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public String[] getJobPositions() {
+        return jobPositions;
+    }
+
     public Pizzeria(boolean open, int numberOfDishes, Address address, String... jobPositions) {
         this.open = open;
         this.numberOfDishes = numberOfDishes;
