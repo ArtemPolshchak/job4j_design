@@ -8,6 +8,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author artem.polschak@gmail.com on 19.04.2022.
@@ -38,13 +40,22 @@ public class Find  {
         Predicate<Path> result = path -> true;
         switch (type) {
             case "mask":
-                result = path -> path.toFile().getName().endsWith(argsName.get("n"));
+                String tmp = argsName.get("n");
+                Pattern first = Pattern.compile("\\?");
+                Matcher f = first.matcher(tmp);
+                String tmp2 = f.replaceAll("\\\\w{1}");
+
+                Pattern second = Pattern.compile("\\.");
+                Matcher s = second.matcher(tmp2);
+                String tmp3 = s.replaceAll("\\\\.");
+
+                Pattern third = Pattern.compile("\\*");
+                Matcher t = third.matcher(tmp3);
+                String tmp4 = t.replaceAll(".*");
+                result = path -> path.toFile().getName().matches(tmp4);
                 break;
             case "name" :
                 result = path -> path.toFile().getName().equals(argsName.get("n"));
-                break;
-            case "regex" :
-                result = path -> path.toFile().getName().matches(argsName.get("n"));
                 break;
             default:
                 break;
@@ -74,7 +85,7 @@ public class Find  {
   private static void writeFile(List<Path> pathList, ArgsNames argsName) {
         try (Writer out = new BufferedWriter(new FileWriter(argsName.get("o")))) {
             for (Path path : pathList) {
-                out.write(String.valueOf(path) + "\n");
+                out.write((path) + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
