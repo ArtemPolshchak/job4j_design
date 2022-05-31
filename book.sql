@@ -11,12 +11,6 @@ CREATE TABLE book (
     price_id INT REFERENCES supply(id)
     );
     
-CREATE TABLE people (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(20),
-    book_id INT REFERENCES book(id)
-    );
-
 
 INSERT INTO supply (price, amount) VALUES (518.99, 2);
 INSERT INTO supply (price, amount) VALUES (570.20, 6);
@@ -29,12 +23,13 @@ INSERT INTO book (title, author, price_id) VALUES ('Идиот', 'Достоев
 INSERT INTO book (title, author, price_id) VALUES ('Братья Карамазовы', 'Достоевский Ф.М.', 4);
 INSERT INTO book (title, author) VALUES ('Стихотворения и поэмы', 'Есенин С.А.');
 
-INSERT INTO people(name, book_id) VALUES ('Васильев В.Л', 1), ('Сорока А. М.', 1), ('Батрудинов Д. И.', 2), ('Костенко Н. Ф', 3), ('Мушилин С. А', 4);
-
      SELECT * FROM book b INNER JOIN supply s
      ON b.price_id = s.id;
      
-     SELECT * FROM people p INNER JOIN book b
-     ON p.book_id = b.id
-     INNER JOIN supply AS s
+     SELECT b.title, b.author, s.amount
+     FROM book b INNER JOIN supply s
+     ON b.price_id = s.id;
+     
+     SELECT b.title, s.price
+     FROM book b INNER JOIN supply s
      ON b.price_id = s.id;
