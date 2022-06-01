@@ -1,3 +1,8 @@
+CREATE TABLE type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+    );
+
 CREATE TABLE product (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
@@ -6,36 +11,31 @@ CREATE TABLE product (
     type_id INT REFERENCES type(id)
     );
 
-CREATE TABLE type (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50)
-    );
-    
-INSERT INTO product (name, expiried_date, price, type_id) 
-VALUES ('Сыр Hochland Proffesoinal', '2022-05-05', 4, 4),
-('Торт наполеон', '2022-05-31', 10, 12),
-('Пряник Молодежный', '2022-06-20', 3, 12),
-('Сок ФОРЕВЕР СВОБОДА', '2022-08-15', 3, 14),
-('Молоко Ферма', '2022-06-05', 4, 4),
-('Селедка', '2022-05-31', 6, 2),
-('Куриный Окорок', '2022-06-05', 3, 1),
-('яйца', '2022-06-10', 2, 3),
-('Олия', '2022-12-01', 7, 13),
-('Макароны', '2022-12-25', 4, 7);
-
-INSERT INTO type (name) 
-VALUES ('мясо и мясопродукты'),
-('рыба и рыбопродукты'), 
-('яйца'),
-('молочные и сырные продукты'),
-('хлеб и хлебобулочные изделия'),
-('крупы'),('макаронные изделия'),
-('бобовые'),('овощи'),
-('фрукты и ягоды'),
-('орехи и грибы'),
-('кондитерские изделия'),
-('пищевые жиры'),
-('напитки');
+INSERT INTO type (name) VALUES ('мясо и мясопродукты');
+INSERT INTO type (name) VALUES ('рыба и рыбопродукты');
+INSERT INTO type (name) VALUES ('яйца');
+INSERT INTO type (name) VALUES ('молочные и сырные продукты');
+INSERT INTO type (name) VALUES ('хлеб и хлебобулочные изделия');
+INSERT INTO type (name) VALUES ('крупы');
+INSERT INTO type (name) VALUES ('макаронные изделия');
+INSERT INTO type (name) VALUES ('бобовые');
+INSERT INTO type (name) VALUES ('овощи');
+INSERT INTO type (name) VALUES ('фрукты и ягоды');
+INSERT INTO type (name) VALUES ('орехи и грибы');
+INSERT INTO type (name) VALUES ('кондитерские изделия');
+INSERT INTO type (name) VALUES ('пищевые жиры');
+INSERT INTO type (name) VALUES ('напитки');
+ 
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Сыр Hochland Proffesoinal', '2022-05-05', 4, 4);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Торт наполеон', '2022-05-31', 10, 12);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Пряник Молодежный', '2022-06-20', 3, 12);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Сок ФОРЕВЕР СВОБОДА', '2022-08-15', 3, 14);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Молоко Ферма', '2022-06-05', 4, 4);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Селедка', '2022-05-31', 6, 2);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Куриный Окорок', '2022-06-05', 3, 1);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('яйца', '2022-06-10', 2, 3);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Олия', '2022-12-01', 7, 13);
+INSERT INTO product (name, expiried_date, price, type_id) VALUES ('Макароны', '2022-12-25', 4, 7);
 
 SELECT * FROM product;
 SELECT * FROM type;
@@ -50,13 +50,12 @@ WHERE p.name LIKE '%Мороженое%';
 
 SELECT p.name, p.expiried_date, p.price, t.name FROM product p INNER JOIN type t
 ON p.type_id = t.id
-WHERE p.expiried_date < '2022-06-01';
+WHERE p.expiried_date < CURRENT_DATE;
 
-SELECT name, MAX(price) AS max_price
+SELECT name, (SELECT MAX(price)) AS max_price
 FROM product
-GROUP BY name
-ORDER BY max_price DESC
-LIMIT 1;
+WHERE price >= ALL(SELECT MAX(price) FROM product)
+GROUP BY name;
 
 SELECT t.name, COUNT(t.name) as Количество FROM product p INNER JOIN type t
 ON p.type_id = t.id
