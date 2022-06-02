@@ -52,10 +52,9 @@ SELECT p.name, p.expiried_date, p.price, t.name FROM product p INNER JOIN type t
 ON p.type_id = t.id
 WHERE p.expiried_date < CURRENT_DATE;
 
-SELECT name, (SELECT MAX(price)) AS max_price
+SELECT name, price AS max_price
 FROM product
-WHERE price >= ALL(SELECT MAX(price) FROM product)
-GROUP BY name;
+WHERE price >= (SELECT MAX(price) FROM product);
 
 SELECT t.name, COUNT(t.name) as Количество FROM product p INNER JOIN type t
 ON p.type_id = t.id
