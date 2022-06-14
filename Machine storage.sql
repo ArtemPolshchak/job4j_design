@@ -22,11 +22,15 @@ name VARCHAR(30),
 коробкаПередач_id INT REFERENCES Коробка_передач(id)
 );
 
-INSERT INTO Кузов (name_of_detail) VALUES('Седан'), ('Универсал'), ('Хэтчбек'), ('Лифтбек'), ('Лимузин'),('Внедорожник'),('Кроссовер'),('Стретч'),('Купе'),('Родстер'),('Кабриолет'),('Брогам'),('Тарга'),('Пикап'),('SUV'),('Минивен'),('Микровен'),('Компактвен');
+INSERT INTO Кузов (name_of_detail) VALUES('Седан'), ('Универсал'), ('Хэтчбек'), ('Лифтбек'), ('Лимузин'),
+('Внедорожник'),('Кроссовер'),('Стретч'),('Купе'),('Родстер'),('Кабриолет'),('Брогам'),('Тарга'),('Пикап'),
+('SUV'),('Минивен'),('Микровен'),('Компактвен');
 
-INSERT INTO Двигатель (name_of_detail) VALUES('N12M1'),('L-320'),('TRE211'),('SW22RTM2'),('1.4 K7J'),('ВАЗ‑11182'),('f18d4'),('Carrera 4S'),('ВАЗ-2104'),('BlueHDi 180');
+INSERT INTO Двигатель (name_of_detail) VALUES('N12M1'),('L-320'),('TRE211'),('SW22RTM2'),('1.4 K7J'),
+('ВАЗ‑11182'),('f18d4'),('Carrera 4S'),('ВАЗ-2104'),('BlueHDi 180');
 
-INSERT INTO Коробка_передач (name_of_detail) VALUES('TR3'),('Default transmission'),('TransmissionSP2'),('TS9500'),('RbtTRM');
+INSERT INTO Коробка_передач (name_of_detail) VALUES('TR3'),('Default transmission'),
+('TransmissionSP2'),('TS9500'),('RbtTRM');
 
 INSERT INTO Машина (name, кузов_id, двигатель_id, коробкаПередач_id) VALUES('Reno Logan', 1, 1, 1);
 INSERT INTO Машина (name, кузов_id, двигатель_id, коробкаПередач_id) VALUES('Lada Granta', 2, 1, 2);
@@ -36,7 +40,10 @@ INSERT INTO Машина (name, кузов_id, двигатель_id, короб
 INSERT INTO Машина (name, кузов_id, двигатель_id, коробкаПередач_id) VALUES('Pejo Sele', 4, 6, 4);
 INSERT INTO Машина (name,  двигатель_id, коробкаПередач_id) VALUES('Lada Simple', 7, 7);
 
-SELECT Машина.name AS Автомобиль, Кузов.name_of_detail AS Кузов, Двигатель.name_of_detail AS Двигатель, Коробка_передач.name_of_detail AS Коробка_передач
+SELECT Машина.name AS Автомобиль,
+        Кузов.name_of_detail AS Кузов,
+        Двигатель.name_of_detail AS Двигатель,
+        Коробка_передач.name_of_detail AS Коробка_передач
 FROM Машина 
 LEFT JOIN Кузов
     ON Машина.кузов_id = Кузов.id
