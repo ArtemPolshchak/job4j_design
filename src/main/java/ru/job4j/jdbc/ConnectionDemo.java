@@ -1,6 +1,5 @@
 package ru.job4j.jdbc;
 
-import ru.job4j.io.Config;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -12,34 +11,19 @@ import java.util.Properties;
  */
 
 public class ConnectionDemo {
-    private final Properties prs = new Properties();
-
-    public String getValue(String key) {
-        return this.prs.getProperty(key);
-    }
-
-    public void load(InputStream io) {
-        try {
-            this.prs.load(io);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        ConnectionDemo connectionDemo = new ConnectionDemo();
-        ClassLoader loader = ConnectionDemo.class.getClassLoader();
-
-        try (InputStream io = loader.getResourceAsStream("app.properties")) {
-            connectionDemo.load(io);
+        Properties config = new Properties();
+        try (InputStream io = ConnectionDemo.class.getClassLoader().getResourceAsStream("app.properties")) {
+            config.load(io);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Class.forName(connectionDemo.getValue("hibernate.connection.driver_class"));
-        String url  = connectionDemo.getValue("hibernate.connection.url");
-        String login = connectionDemo.getValue("hibernate.connection.username");
-        String password = connectionDemo.getValue("hibernate.connection.password");
+        Class.forName(config.getProperty("hibernate.connection.driver_class"));
+        String url  = config.getProperty("hibernate.connection.url");
+        String login = config.getProperty("hibernate.connection.username");
+        String password = config.getProperty("hibernate.connection.password");
 
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             DatabaseMetaData metaData = connection.getMetaData();
