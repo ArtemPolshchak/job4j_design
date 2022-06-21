@@ -20,58 +20,42 @@ public class TableEditor implements AutoCloseable {
         initConnection();
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-
-    public Properties getProperties() {
-        return properties;
-    }
-
     private void initConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(getProperties().getProperty("hibernate.connection.driver_class"));
-        String url  = getProperties().getProperty("hibernate.connection.url");
-        String login = getProperties().getProperty("hibernate.connection.username");
-        String password = getProperties().getProperty("hibernate.connection.password");
-        setConnection(DriverManager.getConnection(url, login, password));
+        Class.forName(properties.getProperty("hibernate.connection.driver_class"));
+        String url  = properties.getProperty("hibernate.connection.url");
+        String login = properties.getProperty("hibernate.connection.username");
+        String password = properties.getProperty("hibernate.connection.password");
+        connection = DriverManager.getConnection(url, login, password);
     }
 
     public void createTable(String tableName) throws Exception {
-        try (Statement statement = getConnection().createStatement()) {
-            String sql = "create table if not exists " + tableName + "();";
-            statement.executeUpdate(sql);
-        }
+        String sql = "create table if not exists " + tableName + "();";
+        execute(sql);
     }
 
     public void dropTable(String tableName) throws Exception {
-        try (Statement statement = getConnection().createStatement()) {
-            String sql = "drop table " + tableName + ";";
-            statement.executeUpdate(sql);
-        }
+        String sql = "drop table " + tableName + ";";
+        execute(sql);
     }
 
     public void addColumn(String tableName, String columnName, String type) throws Exception {
-        try (Statement statement = getConnection().createStatement()) {
-            String sql = "alter table " + tableName + " add " + columnName + " " + type + ";";
-            statement.executeUpdate(sql);
-        }
+        String sql = "alter table " + tableName + " add " + columnName + " " + type + ";";
+        execute(sql);
     }
 
     public void dropColumn(String tableName, String columnName) throws Exception {
-        try (Statement statement = getConnection().createStatement()) {
-            String sql = "alter table " + tableName + " drop column " + columnName + ";";
-            statement.executeUpdate(sql);
-        }
+        String sql = "alter table " + tableName + " drop column " + columnName + ";";
+        execute(sql);
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
-        try (Statement statement = getConnection().createStatement()) {
-            String sql = "alter table " + tableName + " rename column " + columnName + " to " + newColumnName + ";";
-            statement.executeUpdate(sql);
+        String sql = "alter table " + tableName + " rename column " + columnName + " to " + newColumnName + ";";
+        execute(sql);
+    }
+
+    public void  execute(String query)throws Exception {
+        try (Statement statement = connection.createStatement())  {
+            statement.execute(query);
         }
     }
 
@@ -80,7 +64,7 @@ public class TableEditor implements AutoCloseable {
         var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
         var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
         buffer.add(header);
-        try (var statement = getConnection().createStatement()) {
+        try (var statement = connection.createStatement()) {
             var selection = statement.executeQuery(String.format(
                     "select * from %s limit 1", tableName
             ));
@@ -96,8 +80,8 @@ public class TableEditor implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        if (getConnection() != null) {
-            getConnection().close();
+        if (connection != null) {
+            connection.close();
         }
     }
 
@@ -109,21 +93,21 @@ public class TableEditor implements AutoCloseable {
             e.printStackTrace();
         }
 
-        TableEditor tableEditor = new TableEditor(config);
-        tableEditor.initConnection();
-        tableEditor.createTable("new_test_table");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.addColumn("new_test_table", "id", "serial primary key");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.addColumn("new_test_table", "name", "varchar(20)");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.addColumn("new_test_table", "last_name", "varchar(20)");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.renameColumn("new_test_table", "last_name", "second_name");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.dropColumn("new_test_table", "name");
-        tableEditor.getTableScheme("new_test_table");
-        tableEditor.dropTable("new_test_table");
-        tableEditor.close();
+        try (TableEditor tableEditor = new TableEditor(config)) {
+            tableEditor.initConnection();
+            tableEditor.createTable("new_test_table");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.addColumn("new_test_table", "id", "serial primary key");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.addColumn("new_test_table", "name", "varchar(20)");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.addColumn("new_test_table", "last_name", "varchar(20)");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.renameColumn("new_test_table", "last_name", "second_name");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.dropColumn("new_test_table", "name");
+            tableEditor.getTableScheme("new_test_table");
+            tableEditor.dropTable("new_test_table");
+        }
     }
 }
