@@ -1,8 +1,5 @@
 package ru.job4j.spammer;
 
-import ru.job4j.jdbc.PrepareStatementDemo;
-import ru.job4j.map.User;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author User on 21.06.2022.
+ * @author artem.polschak@gmail.com on 24.06.2022.
  * @project job4j_design
  */
 public class ImportDB {
@@ -44,7 +41,8 @@ public class ImportDB {
                 cfg.getProperty("jdbc.password")
         )) {
             for (User user : users) {
-                try (PreparedStatement ps = cnt.prepareStatement("insert into users (name, email) values (?, ?)")) {
+                try (PreparedStatement ps =
+                             cnt.prepareStatement("insert into users (name, email) values (?, ?)")) {
                     ps.setString(1, user.name);
                     ps.setString(2, user.email);
                     ps.execute();
