@@ -27,7 +27,11 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(a -> {
                 String[] arr = a.split(";");
-                users.add(new User(arr[0], arr[1]));
+                if (arr.length == 2 && arr[0] != null && arr[1] != null) {
+                    users.add(new User(arr[0], arr[1]));
+                } else {
+                    throw new IllegalArgumentException();
+                }
             });
         }
         return users;
