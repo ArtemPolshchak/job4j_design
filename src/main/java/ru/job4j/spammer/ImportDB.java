@@ -72,7 +72,8 @@ public class ImportDB {
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
-        try (InputStream in = ImportDB.class.getClassLoader().getResourceAsStream("spammer.properties")) {
+        try (InputStream in =
+                     ImportDB.class.getClassLoader().getResourceAsStream("spammer.properties")) {
             cfg.load(in);
         }
         ImportDB db = new ImportDB(cfg, "./dump.txt");
