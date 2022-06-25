@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author artem.polschak@gmail.com on 24.06.2022.
+ * @author artem.polschak@gmail.com on 25.06.2022.
  * @project job4j_design
  */
 public class ImportDB {
@@ -27,11 +27,16 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(a -> {
                 String[] arr = a.split(";");
-                if (arr.length == 2 && arr[0] != null && arr[1] != null) {
-                    users.add(new User(arr[0], arr[1]));
-                } else {
+                if (arr.length != 2) {
                     throw new IllegalArgumentException();
                 }
+                if (arr[0] == null) {
+                    throw new IllegalArgumentException();
+                }
+                if (arr[1] == null) {
+                    throw new IllegalArgumentException();
+                }
+                users.add(new User(arr[0], arr[1]));
             });
         }
         return users;
