@@ -33,7 +33,23 @@ public class ImportDB {
                 if (arr[0] == null) {
                     throw new IllegalArgumentException();
                 }
+
+                if (arr[0].isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
+
+                if (arr[0].equals(" ")) {
+                    throw new IllegalArgumentException();
+                }
+
                 if (arr[1] == null) {
+                    throw new IllegalArgumentException();
+                }
+                if (arr[1].isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
+
+                if (arr[1].equals(" ")) {
                     throw new IllegalArgumentException();
                 }
                 users.add(new User(arr[0], arr[1]));
