@@ -32,8 +32,6 @@ public class SimpleArrayList<T> implements List<T> {
     public SimpleArrayList() {
     }
 
-
-
     /**
      * Метод добавляет новый елемент <value> в <SimpleArrayList>
      * @param value значение добавляемое в <SimpleArrayList>
