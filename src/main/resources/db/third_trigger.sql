@@ -1,7 +1,3 @@
-create trigger third_trigger
-    after insert on products
-    for each row execute procedure update_products();
-
 create or replace function update_products()
     returns trigger as
 $$BEGIN
@@ -11,3 +7,7 @@ $$BEGIN
 END;
 $$
     LANGUAGE 'plpgsql';
+
+create trigger third_trigger
+    after insert on products
+    for each row execute procedure update_products();

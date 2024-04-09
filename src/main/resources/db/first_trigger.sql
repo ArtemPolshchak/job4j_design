@@ -1,8 +1,3 @@
-create trigger first_trigger
-    after insert on products
-    referencing new table as inserted
-    for each statement execute procedure tax();
-
 create
     or replace function tax()
     returns trigger as
@@ -16,6 +11,7 @@ END;
 $$
     LANGUAGE 'plpgsql';
 
-
-
-
+create trigger first_trigger
+    after insert on products
+    referencing new table as inserted
+    for each statement execute procedure tax();
