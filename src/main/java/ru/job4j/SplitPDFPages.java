@@ -20,7 +20,7 @@ public class SplitPDFPages {
 
             // Создание объекта PDFTextStripper
             PDFTextStripper pdfStripper = new PDFTextStripper();
-            int newDocumentNumber= 80;
+            int newDocumentNumber = 80;
             // Проход по каждой странице документа
             for (int i = 0; i < document.getNumberOfPages(); i++) {
                 // Извлечение текста с текущей страницы
@@ -36,7 +36,7 @@ public class SplitPDFPages {
                 newDocument.addPage(document.getPage(i));
 
                 // Сохранение PDF-документа с учетом номера документа в имени файла
-                newDocument.save(new File("C:\\projects\\PDFDOCUMENTS\\" + documentNumber +"-4-2024.pdf"));
+                newDocument.save(new File("C:\\projects\\PDFDOCUMENTS\\" + documentNumber + "-4-2024.pdf"));
                // newDocument.save(new File("C:\\projects\\PDFDOCUMENTS\\" + String.valueOf(newDocumentNumber++) +"-4-2024.pdf"));
                 newDocument.close();
             }
