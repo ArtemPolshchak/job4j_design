@@ -2,6 +2,7 @@ package ru.job4j.array;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
+
 class SortSelectedTest {
     @Test
      void whenSortAlreadySortedArray() {
