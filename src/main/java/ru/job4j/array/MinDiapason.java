@@ -1,6 +1,7 @@
 package ru.job4j.array;
 
 public class MinDiapason {
+
     public static int findMin(int[] data, int start, int end) {
         int min = data[start];
 

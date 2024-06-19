@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
 
 class SortSelectedTest {
+
     @Test
      void whenSortAlreadySortedArray() {
         int[] input = {1, 2, 3, 4, 5};
