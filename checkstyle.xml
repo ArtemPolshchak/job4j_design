@@ -2,6 +2,7 @@
 <!DOCTYPE module PUBLIC
         "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
 <module name="Checker">
 
     <!--Расширение файла должно быть java, properties, xml-->
@@ -20,6 +21,14 @@
 
     <module name="TreeWalker">
 
+        <module name="EmptyLineSeparator"> <!-- Java Style Guide: Source file structure -->
+            <property name="tokens" value="
+            CLASS_DEF, ENUM_DEF, INTERFACE_DEF, CTOR_DEF, STATIC_INIT, INSTANCE_INIT, VARIABLE_DEF, METHOD_DEF"/>
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLines" value="false"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+        </module>
+
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
         <module name="ConstantName"/>
@@ -37,8 +46,11 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <!--<module name="LineLength"/>-->
-        <module name="MethodLength"/>
-        <!--<module name="ParameterNumber"/>-->
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="100"/>
+        </module>
+        <module name="ParameterNumber"/>
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -59,7 +71,6 @@
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See http://checkstyle.sf.net/config_blocks.html -->
         <module name="AvoidNestedBlocks"/>
-        <module name="EmptyBlock"/>
         <module name="LeftCurly"/>
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
@@ -90,7 +101,10 @@
         <!--<module name="FinalParameters"/>-->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
-
+        <module name="EmptyBlock"/>
+        <module name="EmptyBlock">
+            <property name="tokens" value="LITERAL_CATCH"/>
+        </module>
     </module>
 
 </module>
