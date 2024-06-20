@@ -11,8 +11,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
-
-
 /**
  * @author Artem Polshchak on 03.02.2022.
  * @project job4j_design

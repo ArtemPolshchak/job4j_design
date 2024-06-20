@@ -60,6 +60,4 @@ class SimpleConvertTest {
                 .doesNotContainValue(10)
                 .containsEntry("jack", 2);
     }
-
-
 }

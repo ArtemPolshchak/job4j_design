@@ -22,6 +22,7 @@ public class AnalysisTest {
         Set<User> current = Set.of(u1, u2, u3);
         assertThat(Analysis.diff(previous, current), is(new Info(0, 0, 0)));
     }
+
     @Test
     public void whenOneChanged() {
         User u1 = new User(1, "A");

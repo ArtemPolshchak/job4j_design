@@ -16,7 +16,6 @@ import java.io.*;
  * 3.0. Тестирование IO [#173905]
  * Уровень : 2. ДжуниорКатегория : 2.2. Ввод-выводТопик : 2.2.1. Ввод-вывод
  */
-
 public class AnalysisTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();

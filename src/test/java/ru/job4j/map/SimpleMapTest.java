@@ -57,7 +57,6 @@ public class SimpleMapTest {
         Assert.assertThat(res, is("lol"));
     }
 
-
     @Test(expected = NoSuchElementException.class)
     public void remove() {
         Map<Integer, String> map = new SimpleMap<>();
@@ -98,7 +97,6 @@ public class SimpleMapTest {
         Assert.assertEquals(12, map.size());
     }
 
-
     @Test
     public void whenGetIteratorFromEmptyListThenHasNextReturnFalse() {
         Map<Integer, String> map = new SimpleMap<>();
@@ -110,7 +108,6 @@ public class SimpleMapTest {
         Map<Integer, String> map = new SimpleMap<>();
         map.iterator().next();
     }
-
 
     @Test(expected = ConcurrentModificationException.class)
     public void whenAddAfterGetIteratorThenMustBeException() {

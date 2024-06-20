@@ -48,6 +48,7 @@ class BoxTest {
                 .isLessThan(5)
                 .isEqualTo(4);
     }
+
     @Test
     void checkIntFalse() {
         Box box = new Box(2, 8);
