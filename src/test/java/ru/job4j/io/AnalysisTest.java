@@ -9,7 +9,6 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 
-
 /**
  * @author Artem Polshchak on 06.02.2022.
  * @project job4j_design
