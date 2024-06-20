@@ -35,7 +35,6 @@ public class Reader {
         File fileIn = new File(argsName.get(path));
         File fileOut = new File(argsName.get(out));
 
-
         validation(fileIn, fileOut, argsName);
 
         String[] filterArguments = argsName.get(filter).split(",");

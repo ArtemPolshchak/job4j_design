@@ -33,7 +33,6 @@ public class UsageEncoding {
         }
     }
 
-
     public static void main(String[] args) {
         String path = "./src/text.txt";
         UsageEncoding encoding = new UsageEncoding();

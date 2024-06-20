@@ -12,13 +12,16 @@ import java.util.*;
 
 public class SimpleLinkedList<E> implements List<E> {
     private int size = 0;
+
     private int modCount;
     private Node<E> first;
     private Node<E> last;
 
    private class Node<E> {
          private final E element;
+
          private Node<E> next;
+
          public Node(E element) {
              this.element = element;
          }

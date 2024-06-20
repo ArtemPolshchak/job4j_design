@@ -26,16 +26,12 @@ public class Search {
             throw new IllegalArgumentException("the argument is not the file extension");
         }
 
-
         if (!start.toFile().isDirectory()) {
             throw new IllegalArgumentException("There is not such directory");
         }
 
         search(start, path -> path.toFile().getName().endsWith(".txt")).forEach(System.out::println);
-
-
     }
-
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFile searcher = new SearchFile(condition);

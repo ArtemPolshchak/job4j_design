@@ -20,8 +20,6 @@ public class ConsoleChat {
     private static final String STOP = "стоп";
     private static final String CONTINUE =  "продолжить";
 
-
-
     public String getPath() {
         return path;
     }
@@ -56,7 +54,7 @@ public class ConsoleChat {
                     case (CONTINUE):
                         permissionToReply = true;
                         break;
-                    case(OUT):
+                    case (OUT):
                         break loop;
                     default: break;
                 }

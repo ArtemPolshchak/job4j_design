@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
+
     /**
      * Метод возвращает первое значение и удаляет его из коллекции
      * @return element

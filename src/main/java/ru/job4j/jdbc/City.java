@@ -39,5 +39,4 @@ public class City {
         this.population = population;
     }
 
-
 }

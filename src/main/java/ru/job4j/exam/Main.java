@@ -42,8 +42,6 @@ public class Main  {
         return searcher.getPaths();
     }
 
-
-
     private static void searchFiles(File rootFile, List<File> fileList) {
         if (!rootFile.isDirectory()) {
             System.out.println("нет такой папки");

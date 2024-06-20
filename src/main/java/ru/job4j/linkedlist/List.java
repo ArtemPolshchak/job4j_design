@@ -9,9 +9,10 @@ import java.util.ListIterator;
  * Уровень : 2. ДжуниорКатегория : 2.1.
  * Структуры данных и алгоритмы.Топик : 2.1.3. List
  */
-
 public interface List<E> extends Iterable<E> {
     void add(E value);
+
     E get(int index);
+
     int size();
 }

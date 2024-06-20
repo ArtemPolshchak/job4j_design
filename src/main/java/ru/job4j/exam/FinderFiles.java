@@ -24,7 +24,6 @@ public class FinderFiles {
         writeFile(pathList(start, argsName), argsName);
     }
 
-
     public static List<Path> pathList(Path root, ArgsNames argsName) throws IOException {
         List<Path> listPath = new ArrayList<>();
         String param = argsName.get("t");

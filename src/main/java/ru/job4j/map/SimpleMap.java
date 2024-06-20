@@ -37,8 +37,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
             size++;
             modCount++;
         }
-
-
         return res;
     }
 
@@ -50,14 +48,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return size;
     }
 
-
     /**
      * Метод создает хэш-значение для ключа, который добавляется в коллекцию
      * @param key ключ, для которого создается хэш-значение
      * @return хэш-значение
      */
-
-
     private int hash(Object key) {
         int h = key.hashCode();
         h ^= (h >>> 20) ^ (h >>> 12);
