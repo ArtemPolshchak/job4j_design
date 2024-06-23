@@ -28,9 +28,8 @@ public class ReconstructPhrase {
 
     private String getDescendingElements() {
         StringBuilder builder = new StringBuilder();
-        int size = descendingElements.size();
-        for (int i = size; i > 0; i--) {
-            builder.append(descendingElements.removeLast());
+        while (!descendingElements.isEmpty()) {
+            builder.append(descendingElements.pollLast());
         }
         return builder.toString();
     }
